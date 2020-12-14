@@ -13,14 +13,21 @@
         }
 
         .answer {
-            font-size: 5vw;
-            font-family: Comic sans MS;
+            margin: 0 1vw;
+            font-size: 4vw;
+            font-family: Comic sans MS, sans-serif;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <div class="answer">Yes</div>
+        <div class="answer" id="answer">Yes</div>
     </div>
+    <script>
+        const answers = ['Yes', 'Probably', 'Yassss', 'Indubitably', 'Obviously', 'You shouldn\'t, but you could', 'What are you waiting for ?', 'I know I would'];
+        let answerEl = document.querySelector('#answer');
+        answerEl.textContent = answers[Math.floor(Math.random() * answers.length)];
+    </script>
 </body>
 </html>
