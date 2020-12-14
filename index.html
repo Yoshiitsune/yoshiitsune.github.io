@@ -7,7 +7,41 @@
     <style>
         :root {
             font-size: 10px;
+            --bg: #ffffff;
+            --color: #000000;
+            --transition-time: .2s;
         }
+
+        .darkmode-on {
+            --bg: #181a1b;
+            --color: #e8e6e3
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--color);
+            transition: background-color var(--transition-time) ease, color var(--transition-time) ease;
+        }
+
+        .darkmode-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 1rem;
+        }
+
+        .darkmode-container button {
+            border: 0;
+            padding: 1rem;
+            margin: 0;
+            background: none;
+            color: var(--color);
+            text-transform: uppercase;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
         .content {
             display: flex;
             justify-content: center;
@@ -27,16 +61,18 @@
             padding: 1rem;
             bottom: 0;
             right: 0;
+            opacity: .3;
             font-size: 1rem;
-            opacity: 0.2;
         }
 
         .copyright a {
             text-decoration: none;
+            color: var(--color);
         } 
     </style>
 </head>
 <body>
+    <div class="darkmode-container"><button id="dm-button">Toggle darkmode</button></div>
     <div class="content">
         <div class="answer" id="answer">Yes</div>
     </div>
@@ -45,8 +81,26 @@
     </div>
     <script>
         const answers = ['Yes', 'Probably', 'Yassss', 'Indubitably', 'Obviously', 'You shouldn\'t, but you could', 'What are you waiting for ?', 'I know I would'];
-        let answerEl = document.querySelector('#answer');
+        const answerEl = document.querySelector('#answer');
         answerEl.textContent = answers[Math.floor(Math.random() * answers.length)];
+
+        const dmButton = document.querySelector('#dm-button');
+
+        const dmApply = () => {
+            let dm = JSON.parse(window.localStorage.getItem('darkmode'));
+            dm
+            document.querySelector('body').classList.toggle('darkmode-on', dm)
+        }
+
+        const dmToggle = () => {
+            let dm = JSON.parse(window.localStorage.getItem('darkmode'));
+            dm = !dm;
+            window.localStorage.setItem('darkmode', dm);
+            dmApply();
+        }
+
+        dmButton.addEventListener('click', dmToggle);
+        dmApply();
     </script>
 </body>
 </html>
